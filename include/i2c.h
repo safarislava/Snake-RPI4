@@ -3,7 +3,7 @@
 #ifndef I2C_H
 #define I2C_H
 
-#define I2C1_BASE           (PERIPHERAL_BASE + 0x00804000)
+#define I2C1_BASE    (PERIPHERAL_BASE + 0x00804000)
 
 #define I2C_S_CLKT   (1 << 9)
 #define I2C_S_ERR    (1 << 8)
@@ -21,7 +21,7 @@
 #define I2C_C_INTT   (1 << 9)
 #define I2C_C_INTD   (1 << 8)
 #define I2C_C_ST     (1 << 7) 
-#define I2C_C_CLEAR (1 << 5)
+#define I2C_C_CLEAR  (1 << 5)
 #define I2C_C_READ   (1 << 0) 
 
 struct I2C_Registers {
