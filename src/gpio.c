@@ -2,28 +2,8 @@
 #include <stdint.h>
 
 void gpio_init(void) {
-    // LED
     gpio_pin_enable(17, GPIO_PULL_NONE);
     gpio_pin_set_func(17, GPIO_OUTPUT);
-
-    // I2C
-    gpio_pin_enable(2, GPIO_PULL_NONE);
-    gpio_pin_set_func(2, GPIO_ALT0);
-    gpio_pin_enable(3, GPIO_PULL_NONE);
-    gpio_pin_set_func(3, GPIO_ALT0);
-
-    const uint32_t rows[] = {6, 13, 19, 26};
-    for (int i = 0; i < 4; i++) {
-        gpio_pin_enable(rows[i], GPIO_PULL_NONE);
-        gpio_pin_set_func(rows[i], GPIO_OUTPUT);
-        gpio_digital_write(rows[i]); // Изначально строки неактивны
-    }
-
-    const uint32_t cols[] = {12, 16, 20, 21};
-    for (int i = 0; i < 4; i++) {
-        gpio_pin_enable(cols[i], GPIO_PULL_UP);
-        gpio_pin_set_func(cols[i], GPIO_INPUT);
-    }
 }
 
 void gpio_pin_enable(uint32_t pin, GpioPull pull) {

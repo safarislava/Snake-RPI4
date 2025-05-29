@@ -10,6 +10,19 @@ const char keymap[4][4] = {
     {'*','0','#','D'}
 };
 
+void keyboard_init(void) {
+    for (int i = 0; i < 4; i++) {
+        gpio_pin_enable(rows[i], GPIO_PULL_NONE);
+        gpio_pin_set_func(rows[i], GPIO_OUTPUT);
+    }
+    enable_rows();
+
+    for (int i = 0; i < 4; i++) {
+        gpio_pin_enable(cols[i], GPIO_PULL_UP);
+        gpio_pin_set_func(cols[i], GPIO_INPUT);
+    }
+}
+
 void enable_rows(void) {
     for (int i = 0; i < 4; i++) {
         gpio_digital_write(rows[i]); 
@@ -24,7 +37,6 @@ void disable_rows(void) {
 
 char scan_keyboard(void) {
     enable_rows();
-
     for (int col = 0; col < 4; col++) {
         uint32_t state = gpio_digital_read(cols[col]); 
         if (state == 0) continue;

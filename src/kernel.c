@@ -5,6 +5,7 @@
 
 void kernel_main(void) { 
     gpio_init();
+    keyboard_init();
     ssd1306_init();
     // setup_gpio_interrupts();
     // enable_irq();

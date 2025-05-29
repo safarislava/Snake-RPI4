@@ -2,6 +2,11 @@
 #include "i2c.h"
 
 void i2c_init(void) {
+    gpio_pin_enable(2, GPIO_PULL_NONE);
+    gpio_pin_set_func(2, GPIO_ALT0);
+    gpio_pin_enable(3, GPIO_PULL_NONE);
+    gpio_pin_set_func(3, GPIO_ALT0);
+
     I2C1->DIV = 2500;
     I2C1->S = I2C_S_DONE | I2C_S_ERR | I2C_S_CLKT;
 }
