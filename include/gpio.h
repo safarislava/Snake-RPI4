@@ -41,7 +41,13 @@ typedef enum {
     GPIO_ALT5 = 2
 } GpioFunc;
 
-void gpio_pin_enable(uint32_t pin);
+typedef enum {
+    GPIO_PULL_NONE = 0,
+    GPIO_PULL_DOWN = 1,
+    GPIO_PULL_UP = 2
+} GpioPull;
+
+void gpio_pin_enable(uint32_t pin, GpioPull pull);
 void gpio_pin_set_func(uint32_t pin, GpioFunc func);
 void gpio_init(void);
 void gpio_digital_write(uint32_t pin);
