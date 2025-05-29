@@ -1,3 +1,5 @@
+#pragma once
+
 #include <stdint.h>
 
 #ifndef I2C_H

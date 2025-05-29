@@ -1,1 +1,1 @@
-build/keyboard_c.o: src/keyboard.c
+build/keyboard_c.o: src/keyboard.c include/gpio.h

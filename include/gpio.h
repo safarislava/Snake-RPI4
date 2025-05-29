@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef GPIO_H
 #define GPIO_H
 
@@ -52,6 +54,7 @@ void gpio_pin_set_func(uint32_t pin, GpioFunc func);
 void gpio_init(void);
 void gpio_digital_write(uint32_t pin);
 void gpio_digital_clear(uint32_t pin);
+uint32_t gpio_digital_read(uint32_t pin);
 void init_interrupts(void);
 void led_on(void);
 void led_off(void);

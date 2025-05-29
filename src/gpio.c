@@ -16,7 +16,7 @@ void gpio_init(void) {
     for (int i = 0; i < 4; i++) {
         gpio_pin_enable(rows[i], GPIO_PULL_NONE);
         gpio_pin_set_func(rows[i], GPIO_OUTPUT);
-        gpio_digital_write(rows[i]); 
+        gpio_digital_write(rows[i]); // Изначально строки неактивны
     }
 
     const uint32_t cols[] = {12, 16, 20, 21};
@@ -54,6 +54,12 @@ void gpio_digital_write(uint32_t pin) {
 
 void gpio_digital_clear(uint32_t pin) {
     GPIO_REGS->output_clear.data[pin / 32] = (1 << (pin % 32));
+}
+
+uint32_t gpio_digital_read(uint32_t pin) {
+    uint32_t regIndex = pin / 32;
+    uint32_t bit = pin % 32;
+    return (GPIO_REGS->level.data[regIndex] >> bit) & 1;
 }
 
 void led_on(void) {

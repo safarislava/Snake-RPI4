@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef SSD1306_FONT_H
 #define SSD1306_FONT_H
 

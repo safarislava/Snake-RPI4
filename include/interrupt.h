@@ -1,3 +1,4 @@
+#pragma once
 #include "gpio.h"
 
 #ifndef INTERRUPT_H
@@ -7,6 +8,7 @@
 
 #define GPIO_MASK ((1 << 12) | (1 << 16) | (1 << 20) | (1 << 21))
 
+void irq_handler(void);
 void enable_irq(void);
 void disable_irq(void);
 void setup_gpio_interrupts(void);
