@@ -8,5 +8,4 @@ SECTIONS
     .rodata : { *(.rodata*) }
     .data : { *(.data*) }
     .bss : { *(.bss*) }
-    _irq_stack = . + 0x10000;
 }

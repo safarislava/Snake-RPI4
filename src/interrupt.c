@@ -1,28 +1,22 @@
 #include <stdint.h>
 #include "interrupt.h"
+#include "keyboard.h"
 
 volatile uint32_t* IRQ_PENDING_1 = (volatile uint32_t*)(IRQ_BASE + 0x204);
 volatile uint32_t* IRQ_ENABLE_1 = (volatile uint32_t*)(IRQ_BASE + 0x214);
 
+char last_char = '\0';
+
 void irq_handler(void) {
     led_on();
     if (*IRQ_PENDING_1 & (1 << 17)) {
-        handle_gpio_irq();
+        last_char = scan_keyboard();
         *IRQ_PENDING_1 = (1 << 17);
     }
 }
 
-void handle_gpio_irq(void) {
-    uint32_t events = GPIO_REGS->event_detect.data[0] & GPIO_MASK;
-    
-    if (events) {
-        if (events & (1 << 12)) { /* GPIO12 */ }
-        if (events & (1 << 16)) { /* GPIO16 */ }
-        if (events & (1 << 20)) { /* GPIO20 */ }
-        if (events & (1 << 21)) { /* GPIO21 */ }
-        
-        GPIO_REGS->event_detect.data[0] = events;
-    }
+char get_last_char(void) {
+    return last_char;
 }
 
 void enable_irq(void) {
@@ -35,8 +29,8 @@ void disable_irq(void) {
     asm volatile("msr daifset, #2");
 }
 
-void setup_gpio_interrupts(void) {    
+void interrupt_init(void) {    
+    keyboard_init();
     GPIO_REGS->event_detect.data[0] = GPIO_MASK;
-
     GPIO_REGS->falling_edge_detect.data[0] = GPIO_MASK;  
 }

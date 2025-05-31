@@ -1,1 +1,2 @@
-build/interrupt_c.o: src/interrupt.c include/interrupt.h include/gpio.h
+build/interrupt_c.o: src/interrupt.c include/interrupt.h include/gpio.h \
+ include/keyboard.h

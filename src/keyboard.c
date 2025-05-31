@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "gpio.h"
+#include "keyboard.h"
 
 const uint32_t rows[] = {6, 13, 19, 26};
 const uint32_t cols[] = {12, 16, 20, 21};

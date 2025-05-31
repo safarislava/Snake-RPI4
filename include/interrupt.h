@@ -9,9 +9,9 @@
 #define GPIO_MASK ((1 << 12) | (1 << 16) | (1 << 20) | (1 << 21))
 
 void irq_handler(void);
+char get_last_char(void);
 void enable_irq(void);
 void disable_irq(void);
-void setup_gpio_interrupts(void);
-void handle_gpio_irq(void);
+void interrupt_init(void);
 
 #endif
