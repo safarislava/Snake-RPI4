@@ -1,41 +1,37 @@
-// #include "interrupt.h"
 #include "keyboard.h"
 #include "ssd1306.h"
 #include "gpio.h"
 #include "game.h"
 
-char str[] = {'S', 'c', 'o', 'r', 'e', ':', '0', '0', '0'}; 
+char score_string[] = {'S', 'c', 'o', 'r', 'e', ':', '0', '0', '0'};
 
-void update_score_string() {
-    int i = 0;
-    int N = get_current_score();
+void update_score_string()
+{
+    uint8_t i = 0;
+    uint8_t N = get_current_score();
 
-    // Reverse the string to get the correct order
-    for (int j = 0, k = 8; j < k; j++, k--) {
-        char temp = str[j];
-        str[j] = str[k];
-        str[k] = temp;
+    for (int j = 0, k = 8; j < k; j++, k--)
+    {
+        char temp = score_string[j];
+        score_string[j] = score_string[k];
+        score_string[k] = temp;
     }
 
-    str[0] = '0';
-    str[1] = '0';
-    str[2] = '0';
+    score_string[0] = '0';
+    score_string[1] = '0';
+    score_string[2] = '0';
 
-    // Extract digits from the number and add them to the
-    // string
-    while (N > 0) {
-      
-        // Convert integer digit to character and store
-        // it in the str
-        str[i++] = N % 10 + '0';
+    while (N > 0)
+    {
+        score_string[i++] = N % 10 + '0';
         N /= 10;
-    } 
+    }
 
-    // Reverse the string to get the correct order
-    for (int j = 0, k = 8; j < k; j++, k--) {
-        char temp = str[j];
-        str[j] = str[k];
-        str[k] = temp;
+    for (int j = 0, k = 8; j < k; j++, k--)
+    {
+        char temp = score_string[j];
+        score_string[j] = score_string[k];
+        score_string[k] = temp;
     }
 }
 
@@ -62,9 +58,9 @@ void kernel_main(void)
             game();
 
             update_matrix();
-            
+
             update_score_string();
-            ssd1306_draw_string(0, 0, str);
+            ssd1306_draw_string(0, 0, score_string);
 
             for (int j = 0; j < MAX_Y; j++)
             {
@@ -75,24 +71,22 @@ void kernel_main(void)
             }
 
             ssd1306_update();
-            //delay(10000);
+            // delay(10000);
         }
 
         while (get_is_game_over())
         {
             ssd1306_clear();
             ssd1306_draw_string(30, 28, "Game Over!");
-            ssd1306_draw_string(0, 0, str);
+            ssd1306_draw_string(0, 0, score_string);
             ssd1306_update();
 
             char pressed_key = scan_keyboard();
             if (pressed_key == '5')
             {
-                break; 
+                break;
             }
-
-            //delay(10000);
+            // delay(10000);
         }
     }
 }
-

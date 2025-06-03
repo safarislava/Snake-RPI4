@@ -8,12 +8,14 @@
 #define PERIPHERAL_BASE 0xFE000000U
 #define GPIO_BASE (PERIPHERAL_BASE + 0x200000U)
 
-struct GpioPinData {
+struct GpioPinData
+{
     volatile uint32_t reserved;
     volatile uint32_t data[2];
 };
 
-struct GpioRegs {
+struct GpioRegs
+{
     volatile uint32_t fun_select[6];
     struct GpioPinData output_set;
     struct GpioPinData output_clear;
@@ -32,7 +34,8 @@ struct GpioRegs {
 
 #define GPIO_REGS ((volatile struct GpioRegs *)(GPIO_BASE))
 
-typedef enum {
+typedef enum
+{
     GPIO_INPUT = 0,
     GPIO_OUTPUT = 1,
     GPIO_ALT0 = 4,
@@ -43,7 +46,8 @@ typedef enum {
     GPIO_ALT5 = 2
 } GpioFunc;
 
-typedef enum {
+typedef enum
+{
     GPIO_PULL_NONE = 0,
     GPIO_PULL_DOWN = 1,
     GPIO_PULL_UP = 2

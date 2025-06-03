@@ -36,7 +36,7 @@ void ssd1306_init(void)
     ssd1306_write_cmd(0xD5); // Set Display Clock Divide
     ssd1306_write_cmd(0x80); // Значение делителя
     ssd1306_write_cmd(0xA8); // Set Multiplex Ratio
-    ssd1306_write_cmd(0x3F); // Для высоты 32 строки (0x1F = 31)
+    ssd1306_write_cmd(0x3F); // Мультиплексное соотношение 1/64
     ssd1306_write_cmd(0xD3); // Set Display Offset
     ssd1306_write_cmd(0x00); // Смещение 0
     ssd1306_write_cmd(0x40); // Set Display Start Line
@@ -71,9 +71,9 @@ void ssd1306_update(void)
 {
     for (uint8_t page = 0; page < SSD1306_PAGES; page++)
     {
-        ssd1306_write_cmd(0xB0 | page); // Set Page Start Address for Page Addressing Mode
-        ssd1306_write_cmd(0x00);        // Set Lower Column Start Address (usually 0)
-        ssd1306_write_cmd(0x00);        // Set Higher Column Start Address (usually 0)
+        ssd1306_write_cmd(0xB0 | page); // Set Page Start Address
+        ssd1306_write_cmd(0x00);        // Set Lower Column Start Address 
+        ssd1306_write_cmd(0x00);        // Set Higher Column Start Address 
         ssd1306_write_data(&framebuffer[page * SSD1306_WIDTH], SSD1306_WIDTH);
     }
 }
@@ -131,11 +131,6 @@ void ssd1306_draw_char(int x, int y, char ch)
             }
         }
     }
-}
-
-void ssd1306_fill(void)
-{
-    memset(framebuffer, 0xFF, sizeof(framebuffer)); // Все пиксели включены
 }
 
 void ssd1306_draw_string(int x, int y, char *str)

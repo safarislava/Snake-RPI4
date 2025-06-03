@@ -4,26 +4,27 @@
 
 uint8_t matrix[MAX_Y][MAX_X] = {0};
 
-int is_game_over;
-int head_x, head_y; // position of snake head
+uint8_t is_game_over;
+uint8_t head_x, head_y; 
 direction *p_current_direction = &(direction){0, 0};
-int tail_x[MAX_X * MAX_Y], tail_y[MAX_X * MAX_Y], tail_size; // array for tail in x and y, size of tail
-int food_x, food_y;                                      // food position
-int is_wall_collision_enabled;
-int current_score;
+uint8_t tail_x[MAX_X * MAX_Y], tail_y[MAX_X * MAX_Y], tail_size;
+uint8_t food_x, food_y;                                          
+uint8_t is_wall_collision_enabled;
+uint8_t current_score;
 uint32_t seed = 1;
 
-uint32_t rand(void) {
+int rand(void)
+{
     seed = (1103515245 * seed + 12345) & 0x7FFFFFFF;
     return seed;
 }
 
-int get_is_game_over()
+uint8_t get_is_game_over()
 {
     return is_game_over;
 }
 
-int get_current_score()
+uint8_t get_current_score()
 {
     return current_score;
 }
@@ -32,7 +33,7 @@ void init_game()
 {
     is_game_over = 0;
     head_x = MAX_X / 2;
-    head_y = MAX_Y / 2; 
+    head_y = MAX_Y / 2;
     *p_current_direction = (direction){0, 0};
 
     for (int i = 0; i < MAX_X * MAX_Y; i++)
@@ -40,10 +41,10 @@ void init_game()
         tail_x[i] = 0;
         tail_y[i] = 0;
     }
-    
-    tail_size = 0; 
+
+    tail_size = 0;
     food_x = 1;
-    food_y = 1;                                      
+    food_y = 1;
     is_wall_collision_enabled = 0;
     current_score = 0;
 
@@ -55,11 +56,9 @@ void init_game()
     {
         for (int i = 0; i < MAX_X; i++)
         {
-            matrix[j][i] = 0; // Clear the matrix
+            matrix[j][i] = 0;
         }
     }
-
-
 }
 
 void update_matrix()
@@ -129,11 +128,11 @@ void input(char key)
 
 void game()
 {
-
-if (head_x == food_x && head_y == food_y)
+    // Check food collection
+    if (head_x == food_x && head_y == food_y)
     {
         led_on();
-        //delay(10000);
+        delay(10000);
         led_off();
         current_score += 1;
         tail_size++;
@@ -161,7 +160,7 @@ if (head_x == food_x && head_y == food_y)
             }
         }
     }
-    
+
     // Move tail
     for (int i = tail_size - 1; i > 0; i--)
     {
@@ -214,12 +213,9 @@ if (head_x == food_x && head_y == food_y)
             is_game_over = 1;
         }
     }
-
-    // Check food collection
-    
 }
 
-int compare_directions(direction direction1, direction direction2)
+uint8_t compare_directions(direction direction1, direction direction2)
 {
     return direction1.delta_x == direction2.delta_x && direction1.delta_y == direction2.delta_y;
 }
