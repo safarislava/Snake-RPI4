@@ -2,8 +2,7 @@ BOOTMNT ?= ~/Desktop
 
 ARMGNU ?= aarch64-linux-gnu
 
-COPS = -DRPI_VERSION=4 -Wall -nostdlib -nostartfiles -ffreestanding \
-	   -Iinclude -mgeneral-regs-only -march=armv8-a
+COPS = -DRPI_VERSION=4 -Wall -nostdlib -nostartfiles -ffreestanding -Iinclude -mgeneral-regs-only -march=armv8-a
 
 ASMOPS = -Iinclude
 
