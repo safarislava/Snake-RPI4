@@ -19,13 +19,7 @@ void uart_init() {
     REGS_AUX->mu_lcr = 3;
     REGS_AUX->mu_mcr = 0;
 
-#if RPI_VERSION == 3
-    REGS_AUX->mu_baud_rate = 270; // = 115200 @ 250 Mhz
-#endif
-
-#if RPI_VERSION == 4
     REGS_AUX->mu_baud_rate = 541; // = 115200 @ 500 Mhz
-#endif
 
     REGS_AUX->mu_control = 3;
 

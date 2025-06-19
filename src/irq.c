@@ -34,25 +34,13 @@ void show_invalid_entry_message(u32 type, u64 esr, u64 address) {
 }
 
 void enable_interrupt_controller() {
-    #if RPI_VERSION == 4
-        REGS_IRQ->irq0_enable_0 = AUX_IRQ | SYS_TIMER_IRQ_1 | SYS_TIMER_IRQ_3;
-    #endif
-
-    #if RPI_VERSION == 3
-        REGS_IRQ->irq0_enable_1 = AUX_IRQ | SYS_TIMER_IRQ_1 | SYS_TIMER_IRQ_3;
-    #endif
+    REGS_IRQ->irq0_enable_0 = AUX_IRQ | SYS_TIMER_IRQ_1 | SYS_TIMER_IRQ_3;
 }
 
 void handle_irq() {
     u32 irq;
 
-#if RPI_VERSION == 4
     irq = REGS_IRQ->irq0_pending_0;
-#endif
-
-#if RPI_VERSION == 3
-    irq = REGS_IRQ->irq0_pending_1;
-#endif
 
     while(irq) {
         if (irq & AUX_IRQ) {
