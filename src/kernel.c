@@ -32,10 +32,11 @@ void kernel_main() {
 
     printf("\nException Level: %d\n", get_el());
 
-    // while(1) {
-    //     char symbol = scan_keyboard();
-    //     if (symbol != '0') {
-    //         printf("Symbol: %c\n", symbol);
-    //     }
-    // }
+    while(1) {
+        continue;
+        // char symbol = scan_keyboard();
+        // if (symbol != 'Z') {
+            // printf("Symbol: %c\n", symbol);
+        // }
+    }
 }

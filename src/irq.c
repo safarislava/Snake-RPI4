@@ -35,6 +35,7 @@ void show_invalid_entry_message(u32 type, u64 esr, u64 address) {
 
 void enable_interrupt_controller() {
     REGS_IRQ->irq0_enable_0 = AUX_IRQ | SYS_TIMER_IRQ_1 | SYS_TIMER_IRQ_3;
+    REGS_IRQ->irq0_enable_1 = GPIO_IRQ_0;
 }
 
 void handle_irq() {
@@ -66,4 +67,13 @@ void handle_irq() {
         }
     }
 
+    irq = REGS_IRQ->irq0_pending_1;
+
+    while (irq) {
+        if (irq & GPIO_IRQ_0) {
+            irq &= ~GPIO_IRQ_0;
+
+            handle_keyboard_irq();
+        }
+    }
 }

@@ -1,6 +1,7 @@
 #include "common.h"
 #include "gpio.h"
 #include "keyboard.h"
+#include "printf.h"
 
 const u32 rows[] = {6, 13, 19, 26};
 const u32 cols[] = {12, 16, 20, 21};
@@ -21,8 +22,9 @@ void keyboard_init(void)
 
     for (int i = 0; i < 4; i++)
     {
-        gpio_pin_enable(cols[i], GPIO_PULL_UP);
+        gpio_pin_enable(cols[i], GPIO_PULL_DOWN);
         gpio_pin_set_func(cols[i], GPIO_INPUT);
+        gpio_enable_rising_edge_detect(cols[i]);
     }
 }
 
@@ -65,5 +67,20 @@ char scan_keyboard(void)
         }
     }
 
-    return '0';
+    return 'Z';
+}
+
+void handle_keyboard_irq(void) {
+    printf("Keyboard IRQ\n");
+
+    for (int i = 0; i < 4; i++) {
+        gpio_clear_event_detect(cols[i]);
+    }
+
+    char key = scan_keyboard();
+    if (key) {
+        printf("Symbol: %c\n", key);
+    }
+
+    return;
 }

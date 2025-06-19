@@ -33,7 +33,29 @@ void gpio_digital_clear(u32 pin)
 
 u32 gpio_digital_read(u32 pin)
 {
-    u32 regIndex = pin / 32;
-    u32 bit = pin % 32;
-    return (REGS_GPIO->level.data[regIndex] >> bit) & 1;
+    return (REGS_GPIO->level.data[pin / 32] >> (pin % 32)) & 1;
+}
+
+void gpio_enable_falling_edge_detect(u32 pin) {
+    REGS_GPIO->fe_detect_enable.data[pin / 32] |= (1 << (pin % 32));
+}
+
+void gpio_enable_rising_edge_detect(u32 pin) {
+    REGS_GPIO->re_detect_enable.data[pin / 32] |= (1 << (pin % 32));
+}
+
+void gpio_disable_falling_edge_detect(u32 pin) {
+    REGS_GPIO->fe_detect_enable.data[pin / 32] &= ~(1 << (pin % 32));
+}
+
+void gpio_disable_rising_edge_detect(u32 pin) {
+    REGS_GPIO->re_detect_enable.data[pin / 32] &= ~(1 << (pin % 32));
+}
+
+void gpio_clear_event_detect(u32 pin) {
+    REGS_GPIO->ev_detect_status.data[pin / 32] = (1 << (pin % 32));  // Write 1 to clear
+}
+
+u32 gpio_get_event_detect_status(u32 pin) {
+    return (REGS_GPIO->ev_detect_status.data[pin / 32] >> (pin % 32)) & 1;
 }
