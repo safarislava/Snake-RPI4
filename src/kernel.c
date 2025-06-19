@@ -4,6 +4,7 @@
 #include "irq.h"
 #include "timer.h"
 #include "led.h"
+#include "keyboard.h"
 
 void putc(void *p, char c) {
     if (c == '\n') {
@@ -24,6 +25,7 @@ void kernel_main() {
     enable_interrupt_controller();
     irq_enable();
     led_init();
+    keyboard_init();
     timer_init();
 
 #if RPI_VERSION == 3
@@ -36,27 +38,10 @@ void kernel_main() {
 
     printf("\nException Level: %d\n", get_el());
 
-    printf("Sleeping 200 ms...\n");
-    timer_sleep(200);
-
-    printf("Sleeping 200 ms...\n");
-    timer_sleep(200);
-
-    printf("Sleeping 200 ms...\n");
-    timer_sleep(200);
-
-    printf("Sleeping 2 seconds...\n");
-    timer_sleep(2000);
-
-    printf("Sleeping 2 seconds...\n");
-    timer_sleep(2000);
-
-    printf("Sleeping 5 seconds...\n");
-    timer_sleep(5000);
-
-    printf("DONE!\n");
-
-    while(1) {
-        //uart_send(uart_recv());
-    }
+    // while(1) {
+    //     char symbol = scan_keyboard();
+    //     if (symbol != '0') {
+    //         printf("Symbol: %c\n", symbol);
+    //     }
+    // }
 }
