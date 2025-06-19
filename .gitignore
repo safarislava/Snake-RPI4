@@ -3,6 +3,7 @@
 
 # Build
 build/
+*.img
 
 # Prerequisites
 *.d
