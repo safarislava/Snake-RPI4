@@ -2,6 +2,7 @@
 #include "gpio.h"
 #include "keyboard.h"
 #include "printf.h"
+#include "game.h"
 
 const u32 rows[] = {6, 13, 19, 26};
 const u32 cols[] = {12, 16, 20, 21};
@@ -78,6 +79,8 @@ void handle_keyboard_irq(void) {
     }
 
     char key = scan_keyboard();
+    input(key);
+
     if (key) {
         printf("Symbol: %c\n", key);
     }

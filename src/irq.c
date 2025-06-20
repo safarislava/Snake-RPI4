@@ -5,6 +5,7 @@
 #include "peripherals/_aux.h"
 #include "mini_uart.h"
 #include "timer.h"
+#include "keyboard.h"
 
 const char entry_error_messages[16][32] = {
 	"SYNC_INVALID_EL1t",
